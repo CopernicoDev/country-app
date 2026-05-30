@@ -3,7 +3,10 @@ import { HomePage } from './country/pages/home-page/home-page';
 import { ByCapitalPage } from './country/pages/by-capital-page/by-capital-page';
 
 export const routes: Routes = [
-
+    {
+        path: '',
+        component: HomePage,
+    },
     {
         path: 'country',
         loadChildren: () => import('./country/country.routes')
