@@ -6,4 +6,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './by-capital-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ByCapitalPage { }
+export class ByCapitalPage {
+  onSearchByCapital(value: string) {
+    console.log(value);
+  }
+}

@@ -10,4 +10,5 @@ import { TopMenu } from '../../components/top-menu/top-menu';
   templateUrl: './CountryLayout.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CountryLayout { }
+export class CountryLayout {
+}
