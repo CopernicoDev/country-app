@@ -10,6 +10,6 @@ export class Search {
   placeholder = input<string>('');
   value = output<string>();
   onSearchBy(value: string) {
-    console.log(value);
+    this.value.emit(value);
   }
 }
