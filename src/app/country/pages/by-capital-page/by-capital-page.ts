@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Search } from "../../components/search/search";
 import { CountryList } from "../../components/country-list/country-list";
 import { CountryService } from '../../services/country.service';
+import { Country } from '../../interfaces/rest-countries';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -12,7 +13,21 @@ import { CountryService } from '../../services/country.service';
 export class ByCapitalPage {
   countryServices = inject(CountryService)
 
+  isLoading = signal(false);
+  isError = signal<String | null>(null)
+  countries = signal<Country[]>([])
+
+
   getCapital(query: string) {
-    this.countryServices.searchByCapital(query).subscribe((resp) => console.log(resp))
+    if (this.isLoading()) return
+
+    this.isLoading.set(true)
+    this.isError.set(null)
+
+    this.countryServices.searchByCapital(query).subscribe((countries) => {
+      this.isLoading.set(false)
+      this.countries.set(countries)
+      console.log(countries)
+    })
   }
 }

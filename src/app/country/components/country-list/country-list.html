@@ -5,34 +5,32 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Ícono</th>
                     <th>Bandera</th>
                     <th>Nombre</th>
+                    <th>Capital</th>
                     <th>Población</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <!-- row 1 -->
+                @for (country of countries(); track country.cca2; let i = $index) {
                 <tr>
-                    <th>1</th>
-                    <td>Cy Ganderton</td>
-                    <td>Quality Control Specialist</td>
-                    <td>Blue</td>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ country.flag }}</td>
+                    <td>
+                        <img [src]="country.flags.svg" [alt]="country.name.common"
+                            class="w-10 border border-base-content/10">
+                    </td>
+                    <td>{{ country.name.common }}</td>
+                    <td>{{ country.capital }}</td>
+                    <td>{{ country.population }}</td>
+
+                    <td>
+                        <a class="link-primary cursor-pointer">Más información</a>
+                    </td>
                 </tr>
-                <!-- row 2 -->
-                <tr>
-                    <th>2</th>
-                    <td>Hart Hagerty</td>
-                    <td>Desktop Support Technician</td>
-                    <td>Purple</td>
-                </tr>
-                <!-- row 3 -->
-                <tr>
-                    <th>3</th>
-                    <td>Brice Swyre</td>
-                    <td>Tax Accountant</td>
-                    <td>Red</td>
-                </tr>
+                }
             </tbody>
         </table>
     </div>
