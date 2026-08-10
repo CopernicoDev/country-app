@@ -1,18 +1,18 @@
+import { CountryInterface } from "../interfaces/country.interface";
 import { RESTCountry } from "../interfaces/rest-countries";
 
 export class CountryMapper {
-    static mapRestCountryToCountry(restCountry: RESTCountry) {
+    static mapRestCountryToCountry(restCountry: RESTCountry): CountryInterface {
         return {
-            capital: restCountry.capital,
+            capital: restCountry.capital?.join(', ') ?? 'No capital',
             cca2: restCountry.cca2,
             flag: restCountry.flag,
-            flagsvg: restCountry.flags.svg,
             name: restCountry.name.common,
             population: restCountry.population,
-        }
+        };
     }
 
-    static mapRestCountriesToCountries(restCountries: RESTCountry[]) {
+    static mapRestCountriesToCountries(restCountries: RESTCountry[]): CountryInterface[] {
         return restCountries.map(country => this.mapRestCountryToCountry(country));
     }
 }

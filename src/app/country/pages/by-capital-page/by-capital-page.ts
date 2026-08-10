@@ -3,6 +3,7 @@ import { Search } from "../../components/search/search";
 import { CountryList } from "../../components/country-list/country-list";
 import { CountryService } from '../../services/country.service';
 import { RESTCountry } from '../../interfaces/rest-countries';
+import { CountryInterface } from '../../interfaces/country.interface';
 
 @Component({
   selector: 'app-by-capital-page',
@@ -15,7 +16,7 @@ export class ByCapitalPage {
 
   isLoading = signal(false);
   isError = signal<String | null>(null)
-  countries = signal<RESTCountry[]>([])
+  countries = signal<CountryInterface[]>([])
 
 
   getCapital(query: string) {
