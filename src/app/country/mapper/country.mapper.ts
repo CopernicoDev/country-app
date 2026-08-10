@@ -7,7 +7,7 @@ export class CountryMapper {
             capital: restCountry.capital?.join(', ') ?? 'No capital',
             cca2: restCountry.cca2,
             flag: restCountry.flag,
-            name: restCountry.name.common,
+            name: restCountry.translations["spa"].common ?? 'No spanish name',
             population: restCountry.population,
         };
     }
