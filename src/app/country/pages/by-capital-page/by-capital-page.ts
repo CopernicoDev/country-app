@@ -25,10 +25,17 @@ export class ByCapitalPage {
     this.isLoading.set(true)
     this.isError.set(null)
 
-    this.countryServices.searchByCapital(query).subscribe((countries) => {
-      this.isLoading.set(false)
-      this.countries.set(countries)
-      console.log(countries)
+    this.countryServices.searchByCapital(query).subscribe({
+      next: (countries) => {
+        this.isLoading.set(false)
+        this.countries.set(countries)
+      },
+      error: (message) => {
+        this.isLoading.set(false)
+        this.countries.set([])
+        this.isError.set(`Country not found : ${query}`)
+
+      }
     })
   }
 }

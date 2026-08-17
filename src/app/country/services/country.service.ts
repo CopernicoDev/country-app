@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
-import { RESTCountry } from '../interfaces/rest-countries';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { CountryInterface } from '../interfaces/country.interface';
 import { CountryMapper } from '../mapper/country.mapper';
 
@@ -26,8 +25,17 @@ export class CountryService {
     // CAMBIO AQUÍ: Ya no usamos /capital/, usamos ?q=
     // También usamos <any> porque el formato que llega cambió totalmente
     return this.http.get<any>(`${API}?q=${query}`, { headers }).pipe(
-      map((response) => CountryMapper.mapRestCountriesToCountries(response)),
-      catchError(() => of([]))
+      map((response) => {
+        const countries = CountryMapper.mapRestCountriesToCountries(response);
+        if (countries.length === 0) {
+          throw new Error('Country not found');
+        }
+        return countries;
+      }),
+      catchError((error) => {
+        console.error('Error in CountryService:', error);
+        return throwError(() => new Error(`Error fetching countries: ${error.message}`));
+      })
     );
   }
 }
