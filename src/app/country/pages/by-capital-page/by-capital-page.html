@@ -1,8 +1,9 @@
-<app-search placeholder="Busque su capital" (value)="getCapital($event)" />
+<app-search placeholder="Busque su capital" (value)="query.set($event)" />
 
-
-@if (isError()) {
-<h3 class="mt-10 text-red-700">{{isError()}}</h3>
+@if (countryResource.isLoading()) {
+  <h3>Cargando...</h3>
+} @else if (countryResource.error()) {
+  <h3 class="mt-10 text-red-700">{{countryResource.error()}}</h3>
 } @else {
-<app-country-list [countries]="countries()" />
+  <app-country-list [countries]="countryResource.value() || []" />
 }
